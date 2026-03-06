@@ -36,7 +36,6 @@ const s3Client = new client_s3_1.S3Client({
 const router = (0, express_1.Router)();
 const prismaClient = new client_1.PrismaClient();
 prismaClient.$transaction((prisma) => __awaiter(void 0, void 0, void 0, function* () {
-    // Code running in a transaction...
 }), {
     maxWait: 5000, // default: 2000
     timeout: 10000, // default: 5000
@@ -124,6 +123,7 @@ router.post("/task", middleware_1.authMiddleware, (req, res) => __awaiter(void 0
     // was this money paid by this user address or a different address?
     // parse the signature here to ensure the person has paid 0.1 SOL
     // const transaction = Transaction.from(parseData.data.signature);
+    // const transaction = Transaction.from(parseData.data.signature);
     let response = yield prismaClient.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
         var _a;
         const response = yield tx.task.create({
@@ -163,6 +163,11 @@ router.get("/presignedUrl", middleware_1.authMiddleware, (req, res) => __awaiter
         fields
     });
 }));
+router.post("/sort"), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { array } = req.body;
+    const result = yield array.sort();
+    res.json(result);
+});
 router.post("/signin", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { publicKey, signature } = req.body;
     const message = new TextEncoder().encode("Sign into mechanical turks");

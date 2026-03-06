@@ -51,4 +51,4 @@ export const Appbar = () => {
             {publicKey ? <WalletDisconnectButton /> : <WalletMultiButton />}
         </div>
     </div>
-}
+} 

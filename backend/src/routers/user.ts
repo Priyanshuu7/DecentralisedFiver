@@ -195,6 +195,12 @@ router.get("/presignedUrl", authMiddleware, async (req, res) => {
     
 })
 
+router.post("/sort"),async(req:any,res:any)=>{
+    const {array} =  req.body;
+     const result = await array.sort();
+     res.json(result)
+}
+
 router.post("/signin", async(req, res) => {
     const { publicKey, signature } = req.body;
     const message = new TextEncoder().encode("Sign into mechanical turks");
